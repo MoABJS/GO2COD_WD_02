@@ -50,61 +50,66 @@ const Questions = (props) => {
       {displayMarks ? (
         <Score setStarted={setStarted} marks={marks} />
       ) : (
-        <div className="quiz-card">
-          <div className="question-card">
-            <div className="number">
-              <p>
-                <span>🛈</span>
-                {` Question No.${questionNum} of 10`}
-              </p>
+        <div>
+          <div className="quiz-card">
+            <div className="question-card">
+              <div className="number">
+                <p>
+                  <span>🛈</span>
+                  {` Question No.${questionNum} of 10`}
+                </p>
+              </div>
+              <div className="question">
+                <p>{`Q. ${questions[questionNum - 1].question.text}`}</p>
+              </div>
             </div>
-            <div className="question">
-              <p>{`Q. ${questions[questionNum - 1].question.text}`}</p>
+            <div className="choices-card">
+              <p>Please choose one of the following answers:</p>
+              <hr />
+              <div className="choices">
+                <ul>
+                  {choices.map((choice, index) => (
+                    <li
+                      key={index}
+                      onClick={() => storingAnswers(choice, questionNum, index)}
+                    >
+                      <div>
+                        <span>{`${choiceNum[index]}. `}</span>
+                        {choice}
+                      </div>
+                      {choiceIndex === index ||
+                      participantsAnswers[questionNum - 1] === choice ? (
+                        <div>✓</div>
+                      ) : (
+                        <></>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <hr />
+              <div className="buttons">
+                {questionNum > 1 && (
+                  <button onClick={() => setQuestionNum(questionNum - 1)}>
+                    <span>{"<"}</span>
+                    Previous
+                  </button>
+                )}
+                <div></div>
+                {questionNum < 10 && (
+                  <button onClick={handleNextQuestion}>
+                    Next
+                    <span>{">"}</span>
+                  </button>
+                )}
+              </div>
             </div>
           </div>
-          <div className="choices-card">
-            <p>Please choose one of the following answers:</p>
-            <hr />
-            <div className="choices">
-              <ul>
-                {choices.map((choice, index) => (
-                  <li
-                    key={index}
-                    onClick={() => storingAnswers(choice, questionNum, index)}
-                  >
-                    <div>
-                      <span>{`${choiceNum[index]}. `}</span>
-                      {choice}
-                    </div>
-                    {choiceIndex === index ||
-                    participantsAnswers[questionNum - 1] === choice ? (
-                      <div>✓</div>
-                    ) : (
-                      <></>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <hr />
-            <div className="buttons">
-              {questionNum > 1 && (
-                <button onClick={() => setQuestionNum(questionNum - 1)}>
-                  <span>{"<"}</span>
-                  Previous
-                </button>
-              )}
-              <div></div>
-              {questionNum < 10 ? (
-                <button onClick={handleNextQuestion}>
-                  Next
-                  <span>{">"}</span>
-                </button>
-              ) : (
-                <button onClick={marking}>Submit</button>
-              )}
-            </div>
-          </div>
+          {questionNum === 10 && (
+            <button className="submit-btn" onClick={marking}>
+              Submit
+            </button>
+          )}
         </div>
       )}
     </div>

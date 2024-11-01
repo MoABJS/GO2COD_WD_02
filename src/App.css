@@ -11,6 +11,19 @@ p {
   font-size: 20px;
 }
 
+.submit-btn {
+  padding: 10px;
+  font-size: 30px;
+  gap: 5px;
+  margin: 0 auto;
+  background-color: rgb(30, 127, 201);
+  border: none;
+  border-radius: 3px;
+  color: white;
+  display: block;
+  font-weight: bold;
+}
+
 button:hover {
   cursor: pointer;
 }
@@ -153,7 +166,8 @@ hr {
   .home *,
   .home button,
   .score *,
-  .score button {
+  .score button,
+  .submit-btn {
     font-size: 22px;
   }
 }
